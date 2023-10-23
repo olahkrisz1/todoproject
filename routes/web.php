@@ -26,19 +26,7 @@ Route::get('/', function () {
         $todos = auth()->user()->usersTodos()->latest()->get();
     }
 
-    // $todos = Todo::where('user_id', auth()->id())->get();
-    $perPage = 4;
-    $currentPage = request('page', 1);
-    $pagedData = new LengthAwarePaginator(
-        $todos->forPage($currentPage, $perPage),
-        $todos->count(),
-        $perPage,
-        $currentPage
-    );
-
-    return view('home', [
-        'todos' => $pagedData,
-    ]);
+    return view('home', ['todos' => $todos]);
 });
 
 Route::post('/register', [UserController::class, 'register']);
