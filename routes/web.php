@@ -6,6 +6,8 @@ use App\Models\Todo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,18 @@ Route::get('/', function () {
     }
 
     // $todos = Todo::where('user_id', auth()->id())->get();
-    return view('home', ['todos' => $todos]);
+    $perPage = 4;
+    $currentPage = request('page', 1);
+    $pagedData = new LengthAwarePaginator(
+        $todos->forPage($currentPage, $perPage),
+        $todos->count(),
+        $perPage,
+        $currentPage
+    );
+
+    return view('home', [
+        'todos' => $pagedData,
+    ]);
 });
 
 Route::post('/register', [UserController::class, 'register']);

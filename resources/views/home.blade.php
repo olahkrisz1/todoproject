@@ -66,7 +66,7 @@
 
     @endauth
 
-
+    <div style="max-width:min-content; margin:auto">{{ $todos->links() }}</div>
 
 </body>
 
