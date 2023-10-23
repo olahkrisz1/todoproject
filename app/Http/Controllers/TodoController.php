@@ -23,6 +23,27 @@ class TodoController extends Controller
 
     public function showEditPage(Todo $todo)
     {
+        if (auth()->user()->id !== $todo['user_id']) {
+            return redirect('/');
+        }
         return view('edit-todo', ['todo' => $todo]);
+    }
+
+    public function updateTodo(Todo $todo, Request $request)
+    {
+        if (auth()->user()->id !== $todo['user_id']) {
+            return redirect('/');
+        }
+
+        $incomingFields = $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        $incomingFields['title'] = strip_tags($incomingFields['title']);
+        $incomingFields['description'] = strip_tags($incomingFields['description']);
+
+        $todo->update($incomingFields);
+        return redirect('/');
     }
 }
