@@ -9,7 +9,7 @@
 <body>
 
     @auth
-    <p>You are logged in!</p>
+    <p>You are logged in, {{ auth()->user()->email }}!</p>
     <form action="/logout" method="POST">
         @csrf
         <button>Log out</button>
@@ -23,6 +23,16 @@
             <textarea name="description" placeholder="description"></textarea>
             <button>Save ToDo</button>
         </form>
+    </div>
+
+    <div style='background:grey; border: 3px solid black; margin-top: 20px;'>
+        <h2>All Todos</h2>
+        @foreach($todos as $todo)
+        <div style="background:aqua; padding: 10px; margin:10px;">
+            <h3>{{$todo['title']}}</h3>
+            {{$todo['description']}}
+        </div>
+        @endforeach
     </div>
 
     @else
