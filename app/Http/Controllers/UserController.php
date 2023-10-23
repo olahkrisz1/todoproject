@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function login(Request $request)
+    {
+        $incomingFields = $request->validate([
+            'loginemail' => 'required',
+            'loginpassword' => 'required'
+        ]);
+
+        if (auth()->attempt(['email' => $incomingFields['loginemail'], 'password' => $incomingFields['loginpassword']])) {
+            $request->session()->regenerate();
+            return redirect('/');
+        } else {
+            echo 'Incorrect login';
+        }
+    }
+
     public function register(Request $request)
     {
         $incomingFields = $request->validate([
