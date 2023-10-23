@@ -20,4 +20,9 @@ class TodoController extends Controller
         Todo::create($incomingFields);
         return redirect('/');
     }
+
+    public function showEditPage(Todo $todo)
+    {
+        return view('edit-todo', ['todo' => $todo]);
+    }
 }

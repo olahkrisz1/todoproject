@@ -31,6 +31,12 @@
         <div style="background:aqua; padding: 10px; margin:10px;">
             <h3>{{$todo['title']}}</h3>
             {{$todo['description']}}
+            <p><a href="/edit-todo/{{$todo->id}}">Edit</a></p>
+            <form action="/delete-todo/{{$todo->id}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button>Delete</button>
+            </form>
         </div>
         @endforeach
     </div>
