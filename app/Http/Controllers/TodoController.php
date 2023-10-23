@@ -46,4 +46,12 @@ class TodoController extends Controller
         $todo->update($incomingFields);
         return redirect('/');
     }
+
+    public function deleteTodo(Todo $todo)
+    {
+        if (auth()->user()->id === $todo['user_id']) {
+            $todo->delete();
+        }
+        return redirect('/');
+    }
 }

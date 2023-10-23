@@ -35,3 +35,4 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/create-todo', [TodoController::class, 'createTodo']);
 Route::get('/edit-todo/{todo}', [TodoController::class, 'showEditPage']);
 Route::put('/edit-todo/{todo}', [TodoController::class, 'updateTodo']);
+Route::delete('/delete-todo/{todo}', [TodoController::class, 'deleteTodo']);
