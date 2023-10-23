@@ -14,6 +14,17 @@
         @csrf
         <button>Log out</button>
     </form>
+
+    <div style='background:grey; border: 3px solid black;'>
+        <h2>Create a new ToDo</h2>
+        <form action="/create-todo" method="POST">
+            @csrf
+            <input type="text" name="title" placeholder="title">
+            <textarea name="description" placeholder="description"></textarea>
+            <button>Save ToDo</button>
+        </form>
+    </div>
+
     @else
     <div style='border: 3px solid black;'>
         <h2>Register</h2>
