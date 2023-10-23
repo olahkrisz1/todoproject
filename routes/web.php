@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 use App\Models\Todo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -17,7 +19,12 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    $todos = Todo::all();
+    $todos = [];
+    if (auth()->check()) {
+        $todos = auth()->user()->usersTodos()->latest()->get();
+    }
+
+    // $todos = Todo::where('user_id', auth()->id())->get();
     return view('home', ['todos' => $todos]);
 });
 
